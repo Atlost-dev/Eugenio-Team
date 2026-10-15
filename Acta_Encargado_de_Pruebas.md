@@ -4,12 +4,12 @@ Act02_P2 · Etapa 2 (equipo). Contiene la **matriz de criterios de prueba** (Tab
 
 | | |
 |---|---|
-| **Equipo** | Eugenio Team |
+| **Equipo** | Eugenio Team (Prof. Eugenio Salvador Martínez Velázquez) |
 | **Fecha** | 14 de octubre de 2026 |
-| **Encargado de Pruebas** | _(nombre)_ |
-| **Arquitecto** | _(nombre)_ |
-| **Desarrollador CRUD** | _(nombre)_ |
-| **Documentador** | _(nombre)_ |
+| **Encargado de Pruebas** | Edgar Alexis Sánchez Huerta |
+| **Arquitecto** | Edgar Daniel Zuñiga Gonzalez |
+| **Desarrollador CRUD** | Cristian Ibrahim Salomon Marquez |
+| **Documentador** | Luis Mario Juarez Rolón |
 
 ---
 
@@ -29,7 +29,7 @@ Código bajo prueba: `Desarrollo.ipynb` (cuaderno del equipo). Para poder import
 | `cambiar_estado`, `cancelar_pedido` | Máquina de estados del pedido | Sprint 2 |
 | `eliminar_cliente` / `_ruta` / `_pedido` | DELETE con protección de integridad referencial | Sprint 2 |
 
-> Confirmar con el equipo la columna *Origen*: se asignó "Sprint 1 = entidades y CRUD básico", "Sprint 2 = relaciones (composición) y estados".
+> Nota: en la columna *Origen* se asignó "Sprint 1 = entidades y CRUD básico", "Sprint 2 = relaciones (composición) y estados".
 
 **Fuera de alcance:** capacidad de camiones (la disponibilidad es manual, según el análisis del caso) y la ejecución en Colab.
 
@@ -102,13 +102,13 @@ Tipos: normal · límite · error · persistencia · relación. Prioridad: A (al
 
 | Decisión | Alternativas consideradas | Decisión tomada | Justificación | Responsable |
 |---|---|---|---|---|
-| **1. Archivos de prueba y nombres** (y dónde vive el código) | a) Un archivo por clase; b) un archivo por sprint; c) un archivo por área de comportamiento. Para el código: probar desde el `.ipynb` o exportarlo a un paquete | **(c)**: `test_validadores.py`, `test_modelos.py`, `test_csv.py`, `test_gestor_crud.py`, `test_relaciones.py`, `test_estados.py`, `test_integracion.py`. El código de las celdas se copia **sin cambios** a `rutas_bajio/modelos.py` y `rutas_bajio/gestor.py` | Solo hay tres entidades y **un** gestor (`GestorRutasBajio`): "uno por clase" dejaría un archivo enorme para el gestor. Por sprint se mezclarían temas. Un cuaderno no se importa desde `pytest`, por eso se exporta | Encargado de Pruebas |
-| **2. Fixtures y `conftest.py`** | a) Construir el gestor dentro de cada prueba; b) fixtures en `conftest.py` | **(b)**: `directorio` (`tmp_path / "datos"`), `gestor` (vacío), `cliente`, `ruta`, `gestor_con_datos` (`CLI-010`, `RUTA-01`/`RUTA-03`, un pedido pendiente) | Evita repetir la preparación y deja las pruebas cortas. El gestor usa por defecto `datos_notebook/`; las fixtures siempre le pasan `tmp_path` para no tocar datos reales | Arquitecto |
-| **3. Datos de prueba** | a) CSV de ejemplo versionados en el repo; b) `tmp_path` con CSV escritos dentro de la prueba | **(b)** | Cada prueba es aislada y repetible, sin depender de archivos compartidos ni del orden. Los CSV rotos (C-10, C-12, C-19) se ven en la propia prueba. Mínimo de registros: 2 clientes, 3 rutas (una no disponible) y 2 pedidos | Desarrollador CRUD |
-| **4. Parametrización** | a) Una prueba por valor inválido; b) `parametrize` con `pytest.param(..., id=)` | **(b)** en C-01, C-02, C-03, C-04, C-07 y C-24 | Mismas reglas con distintos datos; el reporte muestra cada caso por nombre (`[telefono_9_digitos]`) y se evita copiar y pegar | Desarrollador CRUD |
-| **5. Marcadores y ejecución por partes** | a) Sin marcadores; b) `integracion` solamente; c) `integracion` y `csv` | **(c)**, registrados en `pytest.ini` con `--strict-markers`. `integracion`: C-11, C-22, C-23. `csv`: C-09 a C-14, C-19 | Las unitarias se corren siempre (`-m "not integracion"`); las de integración y las de archivos, antes de entregar. `--strict-markers` evita marcadores mal escritos que dejarían pruebas sin ejecutar | Arquitecto |
-| **6. Orden de implementación y reparto** | a) Por orden de ID; b) por prioridad; c) por integrante sin orden | **(b)**: primero Alta (C-04, 06, 08, 09, 11, 15–17, 19–24), luego Media y Baja. Reparto por rol (ver abajo) | Lo que más dañaría al negocio (dato perdido, relación rota, id duplicado, estado ilegal) queda protegido desde el principio. Al cerrar, se aplica la técnica de mutación del Paso 10 (p. ej. quitar la validación de duplicados) para comprobar que la suite las detecta | Encargado de Pruebas |
-| **7. Convención de nombres** | a) `test_1`, `test_2`; b) `test_<componente>_<escenario>`; c) nombres con el ID del criterio | **(b)** con el ID en el docstring: `test_crear_cliente_duplicado_lanza_value_error` (`"""C-15"""`) | El reporte se lee solo; el docstring permite rastrear cada prueba hasta su criterio de la Tabla 2 | Documentador |
+| **1. Archivos de prueba y nombres** (y dónde vive el código) | a) Un archivo por clase; b) un archivo por sprint; c) un archivo por área de comportamiento. Para el código: probar desde el `.ipynb` o exportarlo a un paquete | **(c)**: `test_validadores.py`, `test_modelos.py`, `test_csv.py`, `test_gestor_crud.py`, `test_relaciones.py`, `test_estados.py`, `test_integracion.py`. El código de las celdas se copia **sin cambios** a `rutas_bajio/modelos.py` y `rutas_bajio/gestor.py` | Solo hay tres entidades y **un** gestor (`GestorRutasBajio`): "uno por clase" dejaría un archivo enorme para el gestor. Por sprint se mezclarían temas. Un cuaderno no se importa desde `pytest`, por eso se exporta | Alexis |
+| **2. Fixtures y `conftest.py`** | a) Construir el gestor dentro de cada prueba; b) fixtures en `conftest.py` | **(b)**: `directorio` (`tmp_path / "datos"`), `gestor` (vacío), `cliente`, `ruta`, `gestor_con_datos` (`CLI-010`, `RUTA-01`/`RUTA-03`, un pedido pendiente) | Evita repetir la preparación y deja las pruebas cortas. El gestor usa por defecto `datos_notebook/`; las fixtures siempre le pasan `tmp_path` para no tocar datos reales | Daniel |
+| **3. Datos de prueba** | a) CSV de ejemplo versionados en el repo; b) `tmp_path` con CSV escritos dentro de la prueba | **(b)** | Cada prueba es aislada y repetible, sin depender de archivos compartidos ni del orden. Los CSV rotos (C-10, C-12, C-19) se ven en la propia prueba. Mínimo de registros: 2 clientes, 3 rutas (una no disponible) y 2 pedidos | Cristian |
+| **4. Parametrización** | a) Una prueba por valor inválido; b) `parametrize` con `pytest.param(..., id=)` | **(b)** en C-01, C-02, C-03, C-04, C-07 y C-24 | Mismas reglas con distintos datos; el reporte muestra cada caso por nombre (`[telefono_9_digitos]`) y se evita copiar y pegar | Cristian |
+| **5. Marcadores y ejecución por partes** | a) Sin marcadores; b) `integracion` solamente; c) `integracion` y `csv` | **(c)**, registrados en `pytest.ini` con `--strict-markers`. `integracion`: C-11, C-22, C-23. `csv`: C-09 a C-14, C-19 | Las unitarias se corren siempre (`-m "not integracion"`); las de integración y las de archivos, antes de entregar. `--strict-markers` evita marcadores mal escritos que dejarían pruebas sin ejecutar | Daniel |
+| **6. Orden de implementación y reparto** | a) Por orden de ID; b) por prioridad; c) por integrante sin orden | **(b)**: primero Alta (C-04, 06, 08, 09, 11, 15–17, 19–24), luego Media y Baja. Reparto por integrante (ver abajo) | Lo que más dañaría al negocio (dato perdido, relación rota, id duplicado, estado ilegal) queda protegido desde el principio. Al cerrar, se aplica la técnica de mutación del Paso 10 (p. ej. quitar la validación de duplicados) para comprobar que la suite las detecta | Alexis |
+| **7. Convención de nombres** | a) `test_1`, `test_2`; b) `test_<componente>_<escenario>`; c) nombres con el ID del criterio | **(b)** con el ID en el docstring: `test_crear_cliente_duplicado_lanza_value_error` (`"""C-15"""`) | El reporte se lee solo; el docstring permite rastrear cada prueba hasta su criterio de la Tabla 2 | Luis Mario |
 
 ### Árbol de archivos propuesto
 
@@ -136,10 +136,10 @@ Eugenio-Team/
 
 | Integrante | Criterios (IDs) que implementará | Firma de revisión (nombre) |
 |---|---|---|
-| Encargado de Pruebas | C-01, C-02, C-03, C-04, C-07, `conftest.py` y `pytest.ini` | |
-| Arquitecto | C-16, C-17, C-18, C-19, C-20, C-23 | |
-| Desarrollador CRUD | C-09, C-10, C-11, C-12, C-15, C-21, C-22, C-25 | |
-| Documentador | C-05, C-06, C-08, C-13, C-14, C-24, C-26, C-27 | |
+| Edgar Alexis Sánchez Huerta (Encargado de Pruebas) | C-01, C-02, C-03, C-04, C-07, `conftest.py` y `pytest.ini` | |
+| Edgar Daniel Zuñiga Gonzalez (Arquitecto) | C-16, C-17, C-18, C-19, C-20, C-23 | |
+| Cristian Ibrahim Salomon Marquez (Desarrollador CRUD) | C-09, C-10, C-11, C-12, C-15, C-21, C-22, C-25 | |
+| Luis Mario Juarez Rolón (Documentador) | C-05, C-06, C-08, C-13, C-14, C-24, C-26, C-27 | |
 
 ### Lista de verificación (Paso 5)
 
