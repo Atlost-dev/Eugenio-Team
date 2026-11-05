@@ -1,5 +1,6 @@
 import pytest
 
+from rutas_bajio.gestor import GestorRutasBajio
 from rutas_bajio.modelos import Cliente, Pedido, Ruta
 
 
@@ -62,3 +63,24 @@ def test_rutas_compatibles_solo_disponibles_del_mismo_trayecto(gestor_con_datos)
     gestor_con_datos.crear_ruta(Ruta("RUTA-05", "Celaya", "León", 95, 2, "Otro"))
     # PED-0001 es León -> Guanajuato Capital: solo RUTA-03 es disponible y coincide
     assert [r.id_ruta for r in gestor_con_datos.rutas_compatibles("PED-0001")] == ["RUTA-03"]
+
+
+@pytest.mark.parametrize("estado, id_ruta", [
+    pytest.param("cancelado", None, id="nace_cancelado"),
+    pytest.param("entregado", "RUTA-03", id="nace_entregado"),
+])
+def test_crear_pedido_estado_inicial_no_pendiente_lanza_value_error(gestor_con_datos, estado, id_ruta):
+    """C-32"""
+    pedido = Pedido("PED-0002", "CLI-010", "Acero", 5, "León", "Guanajuato Capital", "2026-09-15",
+                    estado=estado, id_ruta=id_ruta)
+    with pytest.raises(ValueError, match="debe estar pendiente"):
+        gestor_con_datos.crear_pedido(pedido)
+    assert gestor_con_datos.buscar_pedido("PED-0002") is None
+
+
+def test_actualizar_ruta_con_pedidos_no_cambia_trayecto(gestor_con_datos, directorio):
+    """C-34"""
+    with pytest.raises(ValueError, match="trayecto"):
+        gestor_con_datos.actualizar_ruta("RUTA-03", destino="Irapuato")
+    recargado = GestorRutasBajio(str(directorio))
+    assert recargado.buscar_ruta("RUTA-03").destino == "Guanajuato Capital"

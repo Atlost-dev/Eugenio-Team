@@ -60,3 +60,12 @@ def test_cargar_pedido_con_cliente_inexistente_lanza_value_error(directorio):
         "PED-0001,CLI-099,Acero,5,León,Irapuato,2026-09-15,pendiente,\n", encoding="utf-8")
     with pytest.raises(ValueError, match="El cliente de PED-0001 no existe"):
         GestorRutasBajio(str(directorio))
+
+
+def test_cargar_claves_duplicadas_en_csv_lanza_value_error(directorio):
+    """C-33"""
+    directorio.mkdir()
+    fila = "CLI-010,Ana,León,4771002233\n"
+    (directorio / "clientes.csv").write_text(ENCABEZADO_CLIENTES + fila + fila, encoding="utf-8")
+    with pytest.raises(ValueError, match="claves duplicadas"):
+        GestorRutasBajio(str(directorio))
