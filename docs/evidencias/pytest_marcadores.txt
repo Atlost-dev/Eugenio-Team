@@ -1,0 +1,6 @@
+== -m "csv"
+8 passed, 63 deselected in 0.04s
+== -m "integracion"
+3 passed, 68 deselected in 0.04s
+== -m "not integracion"
+68 passed, 3 deselected in 0.09s

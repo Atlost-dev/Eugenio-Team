@@ -1,0 +1,34 @@
+M-01 | DETECTADA | crear_cliente acepta ids duplicados
+      falla: tests/test_gestor_crud.py::test_crear_cliente_duplicado_lanza_value_error
+M-02 | DETECTADA | se permite en_transito -> cancelado
+      falla: tests/test_estados.py::test_cambiar_estado_prohibido_lanza_value_error[en_transito_a_cancelado]
+      falla: tests/test_estados.py::test_cancelar_pedido_en_transito_lanza_value_error
+M-03 | DETECTADA | crear_pedido acepta un estado inicial distinto de pendiente
+      falla: tests/test_gestor_crud.py::test_crear_pedido_estado_inicial_no_pendiente_lanza_value_error[nace_cancelado]
+      falla: tests/test_gestor_crud.py::test_crear_pedido_estado_inicial_no_pendiente_lanza_value_error[nace_entregado]
+M-04 | DETECTADA | cargar ignora secuencias.csv (el folio se reutiliza)
+      falla: tests/test_integracion.py::test_folio_no_se_reutiliza_tras_eliminar_pedido
+M-05 | DETECTADA | límite del teléfono desplazado (15 dígitos se rechaza)
+      falla: tests/test_modelos.py::test_cliente_telefono_limites[telefono_15_digitos]
+M-06 | DETECTADA | entero_positivo acepta 0
+      falla: tests/test_validadores.py::test_entero_positivo_invalido_lanza_value_error[cero]
+M-07 | DETECTADA | _validar_relaciones no compara el trayecto
+      falla: tests/test_relaciones.py::test_crear_pedido_ruta_de_otro_trayecto_lanza_value_error
+      falla: tests/test_relaciones.py::test_asignar_ruta_de_otro_trayecto_lanza_value_error
+M-08 | DETECTADA | _validar_relaciones ignora la disponibilidad
+      falla: tests/test_relaciones.py::test_crear_pedido_ruta_no_disponible_lanza_value_error
+M-09 | DETECTADA | eliminar_cliente borra clientes con pedidos
+      falla: tests/test_relaciones.py::test_eliminar_con_pedidos_asociados_lanza_value_error[cliente_con_pedidos]
+M-10 | DETECTADA | cargar acepta pedidos con cliente inexistente
+      falla: tests/test_csv.py::test_cargar_pedido_con_cliente_inexistente_lanza_value_error
+M-11 | DETECTADA | cargar acepta claves duplicadas dentro de un CSV
+      falla: tests/test_csv.py::test_cargar_claves_duplicadas_en_csv_lanza_value_error
+M-12 | DETECTADA | actualizar_ruta cambia el trayecto de una ruta con pedidos
+      falla: tests/test_gestor_crud.py::test_actualizar_ruta_con_pedidos_no_cambia_trayecto
+M-13 | DETECTADA | Pedido en tránsito o entregado sin ruta
+      falla: tests/test_estados.py::test_pedido_sin_ruta_no_sale_a_transito
+      falla: tests/test_modelos.py::test_pedido_en_transito_sin_ruta_lanza_value_error
+M-14 | DETECTADA | _leer acepta encabezados incorrectos
+      falla: tests/test_csv.py::test_leer_encabezados_incorrectos_lanza_value_error
+
+Detectadas: 14 de 14
