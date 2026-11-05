@@ -30,7 +30,7 @@ header-includes:
 |---|---|
 | **Redacción** | Edgar Alexis Sánchez Huerta (Encargado de Pruebas) |
 | **Revisión cruzada** | Cristian Ibrahim Salomon Marquez (Desarrollador CRUD) — pendiente de firma |
-| **Fecha de las ejecuciones** | 5 de noviembre de 2026 |
+| **Fecha de las ejecuciones** |  27 de noviembre de 2026 |
 
 El presente capítulo describe cómo se comprobó que el sistema de Rutas del Bajío cumple las reglas de negocio documentadas en los capítulos anteriores. Se presenta el entorno de pruebas, la matriz unificada de criterios con su trazabilidad hacia las pruebas automatizadas, los resultados de las ejecuciones reales, la evaluación de la calidad de la suite mediante la técnica de mutación, los defectos encontrados y los límites de lo probado. Todas las cifras provienen de ejecuciones de `pytest` sobre el repositorio; las salidas completas se conservan en `docs/evidencias/` y sus capturas en el Anexo C.
 
