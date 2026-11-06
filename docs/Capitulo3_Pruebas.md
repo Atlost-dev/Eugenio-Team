@@ -1,31 +1,3 @@
----
-title: "Capítulo 3. Estrategia y resultados de pruebas"
-lang: es-MX
-documentclass: article
-fontsize: 11pt
-mainfont: Arial
-monofont: Menlo
-monofontoptions: "Scale=0.85"
-linestretch: 1.15
-geometry: margin=2.5cm
-header-includes:
-  - \usepackage{fancyhdr}
-  - \usepackage{pdflscape}
-  - \usepackage{booktabs}
-  - \newcommand{\blandscape}{\begin{landscape}}
-  - \newcommand{\elandscape}{\end{landscape}}
-  - \sloppy
-  - \pagestyle{fancy}
-  - \fancyhf{}
-  - \fancyhead[L]{\small Edgar Alexis Sánchez Huerta}
-  - \fancyhead[R]{\small Capítulo 3. Estrategia y resultados de pruebas}
-  - \fancyfoot[C]{\small\thepage}
-  - \renewcommand{\headrulewidth}{0.4pt}
-  - \fancypagestyle{plain}{\fancyhf{}\fancyhead[L]{\small Edgar Alexis Sánchez Huerta}\fancyhead[R]{\small Capítulo 3. Estrategia y resultados de pruebas}\fancyfoot[C]{\small\thepage}}
-  - \AtBeginDocument{\renewcommand{\tablename}{Tabla}\renewcommand{\thetable}{3.\arabic{table}}}
-  - \setlength{\headheight}{14pt}
----
-
 |                              |                                                                            |
 | ---------------------------- | -------------------------------------------------------------------------- |
 | **Redacción**                | Edgar Alexis Sánchez Huerta (Encargado de Pruebas)                         |
